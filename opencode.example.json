@@ -1,0 +1,142 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "cr-gatekeeper": {
+      "description": "Quick check if PR needs code review",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-3-5-haiku-20241022",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr view*": "allow",
+          "gh pr list*": "allow"
+        }
+      }
+    },
+    "cr-guidelines": {
+      "description": "Find relevant CLAUDE.md/AGENTS.md files",
+      "mode": "subagent", 
+      "model": "openrouter/anthropic/claude-3-5-haiku-20241022",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr diff*": "allow",
+          "find *": "allow",
+          "ls *": "allow",
+          "cat *CLAUDE.md*": "allow",
+          "cat *AGENTS.md*": "allow"
+        }
+      }
+    },
+    "cr-summarizer": {
+      "description": "Summarize PR changes",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-sonnet-4-20250514",
+      "temperature": 0.2,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr view*": "allow",
+          "gh pr diff*": "allow"
+        }
+      }
+    },
+    "cr-compliance": {
+      "description": "Audit for CLAUDE.md/AGENTS.md compliance",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-sonnet-4-20250514",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr diff*": "allow",
+          "cat *": "allow"
+        }
+      }
+    },
+    "cr-bugs": {
+      "description": "Scan for bugs in PR changes",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-opus-4-20250514",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr diff*": "allow"
+        }
+      }
+    },
+    "cr-history": {
+      "description": "Analyze git history for context issues",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-opus-4-20250514",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr diff*": "allow",
+          "git blame*": "allow",
+          "git log*": "allow",
+          "git show*": "allow"
+        }
+      }
+    },
+    "cr-validator": {
+      "description": "Validate individual review issues",
+      "mode": "subagent",
+      "model": "openrouter/anthropic/claude-sonnet-4-20250514",
+      "temperature": 0.1,
+      "hidden": true,
+      "tools": {
+        "write": false,
+        "edit": false
+      },
+      "permission": {
+        "bash": {
+          "*": "deny",
+          "gh pr diff*": "allow",
+          "cat *": "allow",
+          "git blame*": "allow"
+        }
+      }
+    }
+  },
+  "command": {
+    "code-review": {
+      "description": "Automated multi-agent code review for PRs",
+      "template": "{file:./commands/code-review.md}"
+    }
+  }
+}
