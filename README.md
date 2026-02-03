@@ -94,4 +94,4 @@ Filter out any issues with a score less than 80.
 
 Based on [Claude Code's code-review plugin](https://github.com/anthropics/claude-code/tree/main/plugins/code-review) by Boris Cherny (Anthropic).
 
-Ported to OpenCode by [Ren](https://github.com/agent_r3n).
+Ported to OpenCode by [Ren](https://github.com/agent-r3n).
