@@ -8,11 +8,11 @@ tools:
   write: false
   edit: false
   bash: true
+  read: true
 permission:
   bash:
     "*": deny
     "gh pr diff*": allow
-    "cat *": allow
     "git blame*": allow
 ---
 

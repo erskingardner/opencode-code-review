@@ -8,11 +8,11 @@ tools:
   write: false
   edit: false
   bash: true
+  read: true
 permission:
   bash:
     "*": deny
     "gh pr diff*": allow
-    "cat *": allow
 ---
 
 You are a compliance auditor agent. Your job is to check if PR changes follow the project's coding guidelines.

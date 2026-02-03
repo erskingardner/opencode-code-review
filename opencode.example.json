@@ -63,13 +63,13 @@
       "hidden": true,
       "tools": {
         "write": false,
-        "edit": false
+        "edit": false,
+        "read": true
       },
       "permission": {
         "bash": {
           "*": "deny",
-          "gh pr diff*": "allow",
-          "cat *": "allow"
+          "gh pr diff*": "allow"
         }
       }
     },
@@ -118,13 +118,13 @@
       "hidden": true,
       "tools": {
         "write": false,
-        "edit": false
+        "edit": false,
+        "read": true
       },
       "permission": {
         "bash": {
           "*": "deny",
           "gh pr diff*": "allow",
-          "cat *": "allow",
           "git blame*": "allow"
         }
       }
@@ -139,6 +139,7 @@
         "write": false,
         "edit": false,
         "glob": true,
+        "read": true,
         "mcp": true
       },
       "permission": {
@@ -148,8 +149,7 @@
           "gh pr diff*": "allow",
           "gh issue view*": "allow",
           "gh issue list*": "allow",
-          "git log*": "allow",
-          "cat *": "allow"
+          "git log*": "allow"
         }
       }
     }

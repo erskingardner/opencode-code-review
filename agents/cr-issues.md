@@ -9,6 +9,7 @@ tools:
   edit: false
   bash: true
   glob: true
+  read: true
   mcp: true
 permission:
   bash:
@@ -18,7 +19,6 @@ permission:
     "gh issue view*": allow
     "gh issue list*": allow
     "git log*": allow
-    "cat *": allow
 ---
 
 You are an issue resolution verification agent. Your job is to check whether a PR actually fixes the GitHub issues it claims to close.
