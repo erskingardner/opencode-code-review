@@ -21,9 +21,9 @@ Invoke @cr-summarizer to get an overview of the PR changes.
 This provides context for the review agents.
 
 ### Step 4: Parallel Review
-Launch four review tasks in parallel:
+Launch these review tasks in parallel by invoking ALL of them in a SINGLE response (multiple Task tool calls at once):
 
-1. **@cr-compliance** (x2 for redundancy): Check guideline compliance
+1. **@cr-compliance**: Check guideline compliance
    - Pass the list of guideline files from Step 2
    - Pass the PR title and description for context
 
@@ -34,6 +34,8 @@ Launch four review tasks in parallel:
 3. **@cr-history**: Analyze git history
    - Look for context-based issues
    - Pass the PR title and description for context
+
+IMPORTANT: Call all three Task tools in parallel (same message), do not wait for one to complete before starting the next.
 
 Collect all issues from all agents.
 

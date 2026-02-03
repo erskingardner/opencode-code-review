@@ -1,8 +1,9 @@
 ---
 description: Summarize the pull request changes for context
 mode: subagent
-model: openrouter/anthropic/claude-sonnet-4-20250514
+model: openrouter/anthropic/claude-sonnet-4.5
 temperature: 0.2
+hidden: true
 tools:
   write: false
   edit: false

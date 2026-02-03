@@ -1,41 +1,50 @@
 /**
  * Code Review Plugin for OpenCode
- * 
- * Provides enhanced orchestration for the /code-review command,
- * including parallel agent execution and result aggregation.
+ *
+ * Sends desktop notifications when code review completes.
  */
 
 import type { Plugin } from "@opencode-ai/plugin"
 
-interface ReviewIssue {
-  type: "compliance" | "bug" | "history"
-  issue: string
-  location: string
-  confidence: number
-  guideline?: string
-  reason?: string
-  validated?: boolean
-}
+// Track if a code review is in progress
+let codeReviewInProgress = false
 
 export const CodeReviewPlugin: Plugin = async ({ client, $ }) => {
   return {
-    // Hook into command execution to enhance /code-review
+    // Track when code review command starts
     "tui.command.execute": async (input, output) => {
-      // Only handle our command
-      if (!input.command.startsWith("code-review")) return
-
-      await client.app.log({
-        service: "code-review",
-        level: "info",
-        message: "Starting code review orchestration",
-      })
+      if (input.command.startsWith("code-review")) {
+        codeReviewInProgress = true
+        await client.app.log({
+          service: "code-review",
+          level: "info",
+          message: "Code review started",
+        })
+      }
     },
 
-    // Subscribe to session events to track subagent completion
+    // Send notification when session becomes idle (review complete)
     event: async ({ event }) => {
-      if (event.type === "session.idle") {
-        // Could be used to track when subagent tasks complete
-        // for more sophisticated parallel coordination
+      if (event.type === "session.idle" && codeReviewInProgress) {
+        codeReviewInProgress = false
+
+        // Send desktop notification (macOS)
+        try {
+          await $`osascript -e 'display notification "Code review complete!" with title "OpenCode" sound name "Glass"'`
+        } catch {
+          // Fallback for Linux (notify-send)
+          try {
+            await $`notify-send "OpenCode" "Code review complete!"`
+          } catch {
+            // Notification not available, silently ignore
+          }
+        }
+
+        await client.app.log({
+          service: "code-review",
+          level: "info",
+          message: "Code review completed, notification sent",
+        })
       }
     },
   }

@@ -1,8 +1,9 @@
 ---
 description: Quick check if PR needs code review (closed, draft, trivial, already reviewed)
 mode: subagent
-model: openrouter/anthropic/claude-3-5-haiku-20241022
+model: openrouter/anthropic/claude-haiku-4.5
 temperature: 0.1
+hidden: true
 tools:
   write: false
   edit: false
@@ -18,7 +19,7 @@ You are a gatekeeper agent that quickly determines if a pull request needs code 
 
 Check if ANY of the following are true:
 1. The pull request is closed
-2. The pull request is a draft  
+2. The pull request is a draft
 3. The pull request does not need code review (e.g., automated PR, trivial change that is obviously correct)
 4. Claude/AI has already commented on this PR (check `gh pr view <PR> --comments` for AI-generated comments)
 

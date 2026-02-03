@@ -1,8 +1,9 @@
 ---
 description: Audit changes for CLAUDE.md/AGENTS.md compliance
 mode: subagent
-model: openrouter/anthropic/claude-sonnet-4-20250514
+model: openrouter/anthropic/claude-opus-4.5
 temperature: 0.1
+hidden: true
 tools:
   write: false
   edit: false
