@@ -35,7 +35,12 @@ Launch these review tasks in parallel by invoking ALL of them in a SINGLE respon
    - Look for context-based issues
    - Pass the PR title and description for context
 
-IMPORTANT: Call all three Task tools in parallel (same message), do not wait for one to complete before starting the next.
+4. **@cr-issues**: Verify linked issue resolution and Figma designs
+   - Check if PR actually fixes the issues it claims to close
+   - If Figma links are present, verify implementation matches the design
+   - Pass the PR number for issue extraction
+
+IMPORTANT: Call all four Task tools in parallel (same message), do not wait for one to complete before starting the next.
 
 Collect all issues from all agents.
 
@@ -59,7 +64,7 @@ Format each issue as:
 Found {N} issues:
 
 ### 1. {Issue Title}
-**Type**: {compliance|bug|history}
+**Type**: {compliance|bug|history|issue-resolution}
 **Confidence**: {score}/100
 **Location**: {file}:{line}
 
@@ -79,7 +84,7 @@ If no issues found:
 ```
 ## Code Review
 
-No issues found. Checked for bugs and CLAUDE.md/AGENTS.md compliance.
+No issues found. Checked for bugs, CLAUDE.md/AGENTS.md compliance, linked issue resolution, and Figma design compliance.
 ```
 
 ## Notes
